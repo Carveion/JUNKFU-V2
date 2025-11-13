@@ -1,0 +1,14 @@
+services:
+  - type: staticSite
+    name: junkfu-calorie-tracker
+    env: static
+    # This command creates a JS file that loads the API_KEY from the environment variable
+    # into the browser's window object, making it accessible to the client-side code.
+    buildCommand: echo "window.process = { env: { API_KEY: '$API_KEY' } };" > env.js
+    # The root directory where index.html is located.
+    staticPublishPath: .
+    # Rewrite rule to support client-side routing for this Single-Page App (SPA).
+    routes:
+      - type: rewrite
+        source: "/*"
+        destination: "/index.html"
